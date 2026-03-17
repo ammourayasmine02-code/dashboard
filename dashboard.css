@@ -1,0 +1,253 @@
+/* ============================================================
+   UNICEF Dashboard — Droits de l'Enfant en France
+   dashboard.css — Layout personnalisé & surcharges UX/UI
+   Construit au-dessus de unicef.css (Bootstrap 4 via CDN)
+   ============================================================ */
+
+/* ── variables ( tokens de la charte graphique UNICEF) ──────────────── */
+:root {
+  --unicef-blue:       #1CABE2; /* Couleur principale du site UNICEF */
+  --unicef-blue-dark:  #005a9e; /* Variante sombre (textes, contrastes WCAG AA) */
+  --border-color:      #dee2e6; /* Bordures Bootstrap par défaut */
+  --sidebar-width:     260px;   /* Largeur fixe de la sidebar */
+  --navbar-height:     68px;    /* Hauteur de la barre de navigation */
+}
+
+/* ============================================================
+   MISE EN PAGE GÉNÉRALE — Full-height flex (évite calc())
+   ============================================================ */
+
+/* Le body occupe toute la hauteur de la fenêtre en colonne flex,
+   permettant à chaque section (navbar, tabs, contenu) de gérer sa propre hauteur */
+html, body {
+  height: 100%;
+  overflow: hidden; /* Pas de scroll sur le body — chaque zone défile indépendamment */
+}
+
+body {
+  display:        flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   BARRE DE NAVIGATION
+   bd-navbar n'est PAS dans unicef.css CDN — défini ici
+   ============================================================ */
+.bd-navbar {
+  background-color: #fff;
+  border-bottom:    2px solid var(--unicef-blue);
+  min-height:       var(--navbar-height);
+  flex-shrink:      0;
+  padding:          4px 16px !important;
+}
+
+.bd-navbar .navbar-brand {
+  padding: 0;
+}
+
+.bd-navbar .navbar-brand:hover,
+.bd-navbar .navbar-brand:focus {
+  opacity: 0.85;
+}
+
+/* ============================================================
+   BARRE D'ONGLETS DE THÉMATIQUES
+   ============================================================ */
+.themes-row {
+  background:    #fff;
+  border-bottom: 2px solid var(--unicef-blue); /* Séparateur bleu UNICEF */
+  flex-shrink:   0; /* Ne rétrécit jamais — reste au-dessus du contenu */
+}
+
+/* ============================================================
+   CONTENEUR PRINCIPAL — Remplit l'espace restant
+   ============================================================ */
+.app-content {
+  flex:      1;       /* Prend tout l'espace vertical disponible */
+  display:   flex;
+  overflow:  hidden;
+  min-height: 0;      /* Indispensable : permet aux enfants flex de gérer overflow */
+}
+
+/* ============================================================
+   SIDEBAR — Liste des indicateurs (panneau gauche)
+   ============================================================ */
+.sidebar-nav {
+  width:       var(--sidebar-width);
+  min-width:   200px; /* Empêche la sidebar d'être trop étroite */
+  flex-shrink: 0;
+  overflow-y:  auto;  /* Défilement vertical si la liste est longue */
+  background:  #fff;
+  border-right: 1px solid var(--border-color);
+}
+
+/* Titre de section sidebar (h2 stylé comme un petit label discret) */
+.sidebar-nav .sidebar-section-title {
+  margin:         0;
+  padding:        10px 16px 8px;
+  font-size:      0.72rem;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color:          #6c757d;
+  border-bottom:  1px solid var(--border-color);
+  line-height:    1.2;
+}
+
+/* Éléments de la liste d'indicateurs */
+.sidebar-nav .list-group-item {
+  border-radius:   0;
+  border-left:     3px solid transparent; /* Barre colorée à gauche sur survol/actif */
+  border-right:    none;
+  border-top:      none;
+  font-size:       0.83rem;
+  line-height:     1.4;
+  padding:         10px 14px;
+  cursor:          pointer;
+  color:           #343a40;
+}
+
+/* Survol : barre grise à gauche (indicateur visuel sans couleur seule) */
+.sidebar-nav .list-group-item:hover:not(.active) {
+  border-left-color: #adb5bd;
+}
+
+/* Indicateur actif : fond bleu UNICEF, texte blanc, barre blanche */
+.sidebar-nav .list-group-item.active {
+  background-color: var(--unicef-blue);
+  border-color:     var(--unicef-blue);
+  border-left-color: #fff;
+  color:            #fff;
+  font-weight:      600;
+}
+
+/* ============================================================
+   PANNEAU GRAPHIQUE — Zone principale (panneau droit)
+   ============================================================ */
+.chart-main {
+  flex:      1;
+  min-width: 0;    /* Empêche le dépassement hors du flex container */
+  overflow-y: auto;
+}
+
+/* Titre du graphique : NOIR per guideline UX
+   ("utiliser le noir — le bleu UNICEF peut être confondu avec un lien") */
+.chart-title-heading {
+  color:       #212529 !important;
+  font-weight: 600;
+}
+
+/* Conteneur du canvas Chart.js
+   calc = 100vh
+     - navbar (68px)
+     - barre onglets (~44px)
+     - padding chart-main top+bottom (32px)
+     - card filtres + margin-bottom (74px)
+     - card-header graphique (52px)
+     - card-body padding top+bottom (40px)
+     - bordures cards + marge sécurité (30px)
+     = 100vh - 340px                              */
+.chart-container {
+  position:   relative;
+  height:     calc(100vh - 340px);
+  min-height: 200px;
+}
+
+/* ============================================================
+   MESSAGE "AUCUNE DONNÉE NUMÉRIQUE"
+   ============================================================ */
+.no-data-msg {
+  position:        absolute;
+  inset:           0;            /* Couvre tout le conteneur */
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  text-align:      center;
+}
+
+/* ============================================================
+   SPINNER DE CHARGEMENT
+   ============================================================ */
+#chartSpinner {
+  display:     inline-flex;
+  align-items: center;
+}
+
+/* ============================================================
+   ANALYSE DE L'INDICATEUR — Bloc sous le graphique
+   ============================================================ */
+.indicator-analysis {
+  flex-shrink:  0;
+  margin-top:   12px;
+  padding:      12px 16px;
+  background:   #f0f7fc;
+  border-left:  4px solid var(--unicef-blue);
+  border-radius: 0 4px 4px 0;
+  font-size:    0.875rem;
+  line-height:  1.6;
+  color:        #343a40;
+}
+
+/* ============================================================
+   ACCESSIBILITÉ — Styles de focus (WCAG AA)
+   Contour de 3px bleu UNICEF, visible sur tous les éléments interactifs
+   ============================================================ */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+[tabindex]:focus {
+  outline:        3px solid var(--unicef-blue);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   SCROLLBARS — Style discret (WebKit uniquement)
+   ============================================================ */
+.sidebar-nav::-webkit-scrollbar,
+.chart-main::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb,
+.chart-main::-webkit-scrollbar-thumb {
+  background:    #c8d6e5;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   Passe en disposition en colonne, la sidebar devient horizontale
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Réactive le scroll global sur mobile */
+  html, body {
+    overflow: auto;
+  }
+
+  /* Empilement vertical sidebar + graphique */
+  .app-content {
+    flex-direction: column;
+    overflow:       visible;
+  }
+
+  /* Sidebar pleine largeur, hauteur limitée, sans bordure droite */
+  .sidebar-nav {
+    width:         100%;
+    max-height:    200px;
+    border-right:  none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Réduit le padding du panneau graphique sur petit écran */
+  .chart-main {
+    padding: 12px !important;
+  }
+
+  /* Les onglets défilent horizontalement sans passer à la ligne */
+  .themes-row .nav-tabs {
+    flex-wrap:   nowrap;
+    overflow-x:  auto;
+  }
+}

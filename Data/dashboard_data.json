@@ -1,0 +1,1931 @@
+{
+  "Climat": [
+    {
+      "name": "Estimations du nombre d’enfants",
+      "headers": [
+        "Zone Géographique",
+        "Enfants avec BLL > 5 µg/dL (%)",
+        "Enfants avec BLL > 10 µg/dL (%)"
+      ],
+      "data": [
+        [
+          "France",
+          "0.022",
+          "~0,5 %"
+        ],
+        [
+          "Moyenne Pays Riches (OCDE)",
+          "0.018",
+          "~0,3 %"
+        ],
+        [
+          "Roumanie",
+          "0.045",
+          "0.012"
+        ],
+        [
+          "États-Unis",
+          "0.015",
+          "0.002"
+        ],
+        [
+          "Moyenne Mondiale",
+          "~30 %",
+          "~12 %"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants de moins ",
+      "headers": [
+        "Zone Géographique",
+        "Enfants exposés à haut risque (2019)"
+      ],
+      "data": [
+        [
+          "France",
+          "0.058"
+        ],
+        [
+          "Allemagne",
+          "0.042"
+        ],
+        [
+          "Italie",
+          "0.061"
+        ],
+        [
+          "Espagne",
+          "0.055"
+        ],
+        [
+          "Moyenne Pays OCDE/UE",
+          "0.05"
+        ]
+      ]
+    },
+    {
+      "name": "Espaces verts urbains par habit",
+      "headers": [
+        "Pays",
+        "Surface d'espaces verts par habitant (m²)",
+        "Rang (sur 39 pays)"
+      ],
+      "data": [
+        [
+          "Islande",
+          "35,4 m²",
+          "1er"
+        ],
+        [
+          "Finlande",
+          "22,1 m²",
+          "4ème"
+        ],
+        [
+          "France",
+          "3,7 m²",
+          "32ème"
+        ],
+        [
+          "Mexique",
+          "1,2 m²",
+          "39ème"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’élèves touchés par des",
+      "headers": [
+        "Pays / Région",
+        "Élèves touchés ",
+        "Cause principale"
+      ],
+      "data": [
+        [
+          "France",
+          "217346",
+          "Inondations / Chaleur"
+        ],
+        [
+          "Soudan du Sud",
+          "2200000",
+          "Chaleur extrême (écoles fermées 2 semaines)"
+        ],
+        [
+          "Philippines",
+          "3600000",
+          "Typhons / Inondations"
+        ],
+        [
+          "Brésil",
+          "450000",
+          "Inondations majeures (Sud)"
+        ]
+      ]
+    },
+    {
+      "name": "Le nombre d’enfants déplacés à ",
+      "headers": [
+        "Risque climatique majeur",
+        "Nombre d'enfants déplacés (Mondial)",
+        "Part du total"
+      ],
+      "data": [
+        [
+          "Inondations",
+          "19,8 millions",
+          "0.46"
+        ],
+        [
+          "Tempêtes (Cyclones/Ouragans)",
+          "15,5 millions",
+          "0.36"
+        ],
+        [
+          "Sécheresses",
+          "5,2 millions",
+          "0.12"
+        ],
+        [
+          "Incendies et autres",
+          "2,6 millions",
+          "0.06"
+        ],
+        [
+          "TOTAL",
+          "43,1 millions",
+          "1"
+        ]
+      ]
+    }
+  ],
+  "Démographie": [
+    {
+      "name": " Nombre d’enfants de moins de 1",
+      "headers": [
+        "Année",
+        " Nombre d’enfants de moins de 18 ans (en millions)"
+      ],
+      "data": [
+        [
+          "2019",
+          "14.84"
+        ],
+        [
+          "2020",
+          "14.79"
+        ],
+        [
+          "2021",
+          "14.75"
+        ],
+        [
+          "2022",
+          "14.71"
+        ],
+        [
+          "2023",
+          "14.64"
+        ],
+        [
+          "2024",
+          "14.58"
+        ],
+        [
+          "2025",
+          "20"
+        ]
+      ]
+    },
+    {
+      "name": " Taux de fécondité",
+      "headers": [
+        "Année",
+        " Taux de fécondité"
+      ],
+      "data": [
+        [
+          "2019",
+          "1.86"
+        ],
+        [
+          "2020",
+          "1.82"
+        ],
+        [
+          "2021",
+          "1.83"
+        ],
+        [
+          "2022",
+          "1.79"
+        ],
+        [
+          "2023",
+          "1.66"
+        ],
+        [
+          "2024",
+          "1.62"
+        ]
+      ]
+    },
+    {
+      "name": "Âge moyen à la maternité",
+      "headers": [
+        "Année",
+        "Âge moyen à la maternité"
+      ],
+      "data": [
+        [
+          "2019",
+          "30.7"
+        ],
+        [
+          "2020",
+          "30.8"
+        ],
+        [
+          "2021",
+          "30.9"
+        ],
+        [
+          "2022",
+          "31"
+        ],
+        [
+          "2023",
+          "31.1"
+        ],
+        [
+          "2024",
+          "31.2"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage de mères âgées de m",
+      "headers": [
+        "Année",
+        "Pourcentage de mères âgées de  moins de 18 ans"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.0034"
+        ],
+        [
+          "2020",
+          "0.0032"
+        ],
+        [
+          "2021",
+          "0.003"
+        ],
+        [
+          "2022",
+          "0.0028"
+        ],
+        [
+          "2023",
+          "0.0026"
+        ],
+        [
+          "2024",
+          "0.0025"
+        ]
+      ]
+    },
+    {
+      "name": "Part des familles monoparentale",
+      "headers": [
+        "Année",
+        "Part des familles monoparentale"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.234"
+        ],
+        [
+          "2020",
+          "0.238"
+        ],
+        [
+          "2021",
+          "0.247"
+        ],
+        [
+          "2022",
+          "0.251"
+        ],
+        [
+          "2023",
+          "0.259"
+        ],
+        [
+          "2024",
+          "0.265"
+        ]
+      ]
+    },
+    {
+      "name": " Nombre de naissances vivantes ",
+      "headers": [
+        "Année",
+        " Nombre de naissances vivantes domiciliés en France"
+      ],
+      "data": [
+        [
+          "2019",
+          "753383"
+        ],
+        [
+          "2020",
+          "735196"
+        ],
+        [
+          "2021",
+          "742052"
+        ],
+        [
+          "2022",
+          "726047"
+        ],
+        [
+          "2023",
+          "677800"
+        ],
+        [
+          "2024",
+          "648000"
+        ]
+      ]
+    },
+    {
+      "name": "Taux de natalité en outre-mer e",
+      "headers": [
+        "Année",
+        "Taux de natalité en Hexagone",
+        "Taux de natalité en Guyanne",
+        "Taux de natalité à Mayotte"
+      ],
+      "data": [
+        [
+          "2019",
+          "10,7 ‰",
+          "26,0 ‰",
+          "35,5 ‰"
+        ],
+        [
+          "2020",
+          "10,5 ‰",
+          "26,3 ‰",
+          "32,3 ‰"
+        ],
+        [
+          "2021",
+          "10,6 ‰",
+          "27,6 ‰",
+          "35,3 ‰"
+        ],
+        [
+          "2022",
+          "10,3 ‰",
+          "26,7 ‰",
+          "34,7 ‰"
+        ],
+        [
+          "2023",
+          "9,6 ‰",
+          "25,2 ‰",
+          "32,1 ‰"
+        ],
+        [
+          "2024",
+          "9,2 ‰",
+          "24,8 ‰",
+          "31,5 ‰"
+        ]
+      ]
+    }
+  ],
+  "Education": [
+    {
+      "name": "Dépense annuelle par élève ",
+      "headers": [
+        "Année",
+        "Dépense annuelle par élève "
+      ],
+      "data": [
+        [
+          "2019",
+          "9440"
+        ],
+        [
+          "2020",
+          "9470"
+        ],
+        [
+          "2021",
+          "10470"
+        ],
+        [
+          "2022",
+          "10930"
+        ],
+        [
+          "2023",
+          "11580"
+        ],
+        [
+          "2024",
+          "12050"
+        ]
+      ]
+    },
+    {
+      "name": "Taux de NEET des 15-19 ans dans",
+      "headers": [
+        "Année",
+        "Taux de NEET des 15-19 ans national",
+        "Taux de NEET des 15-19 ans à la Réunion ",
+        "Taux de NEET des 15-19 ans en Martinique  ",
+        "Taux de NEET des 15-19 ans en Guadeloupe "
+      ],
+      "data": [
+        [
+          "2015-2019 (Moyenne)",
+          "0.057",
+          "0.1",
+          "0.075",
+          "0.083"
+        ],
+        [
+          "2021",
+          "0.06",
+          "0.11",
+          "0.092",
+          "0.101"
+        ],
+        [
+          "2023-2024",
+          "0.058",
+          "0.12",
+          "0.075",
+          "0.083"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’élèves de REP + s",
+      "headers": [
+        "Année",
+        "Pourcentage d’élèves de REP + s"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.502"
+        ],
+        [
+          "2020",
+          "0.548"
+        ],
+        [
+          "2021",
+          "0.521"
+        ],
+        [
+          "2022",
+          "0.514"
+        ],
+        [
+          "2023",
+          "0.518"
+        ],
+        [
+          "2024",
+          "0.527"
+        ]
+      ]
+    },
+    {
+      "name": "Part de jeunes en difficultés d",
+      "headers": [
+        "Année",
+        "Part de jeunes en difficultés de lecture"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.118"
+        ],
+        [
+          "2020",
+          "0.121"
+        ],
+        [
+          "2021",
+          "0.129"
+        ],
+        [
+          "2022",
+          "0.125"
+        ],
+        [
+          "2023",
+          "0.112"
+        ],
+        [
+          "2024",
+          "0.13"
+        ]
+      ]
+    },
+    {
+      "name": "Ecart moyen de performance entr",
+      "headers": [
+        "Année",
+        "Ecart moyen de performance entre les élèves issus de milieux socio-économiques favorisés et ceux de milieux défavorisés",
+        ""
+      ],
+      "data": [
+        [
+          "2012",
+          "0.225",
+          ""
+        ],
+        [
+          "2015",
+          "0.2",
+          ""
+        ],
+        [
+          "2018",
+          "0.175",
+          ""
+        ],
+        [
+          "2022",
+          "0.171",
+          ""
+        ]
+      ]
+    },
+    {
+      "name": "Nombre total d’heures annuel mo",
+      "headers": [
+        "Année",
+        "Heures (France - Collège)",
+        "Heures (Moyenne Europe)"
+      ],
+      "data": [
+        [
+          "2019",
+          "964 h",
+          "868 h"
+        ],
+        [
+          "2021",
+          "964 h",
+          "870 h"
+        ],
+        [
+          "2023",
+          "968 h",
+          "871 h"
+        ],
+        [
+          "2024",
+          "968 h",
+          "872 h"
+        ]
+      ]
+    },
+    {
+      "name": "Année,Cmoyenne des classes en C",
+      "headers": [
+        "Année",
+        "CITE 1 (Primaire)",
+        "CITE 2 (Collège)"
+      ],
+      "data": [
+        [
+          "2019",
+          "23",
+          "25.4"
+        ],
+        [
+          "2020",
+          "22.5",
+          "25.5"
+        ],
+        [
+          "2021",
+          "22",
+          "25.6"
+        ],
+        [
+          "2022",
+          "21.6",
+          "25.7"
+        ],
+        [
+          "2023",
+          "21.5",
+          "25.8"
+        ],
+        [
+          "2024",
+          "21.3",
+          "25.8"
+        ]
+      ]
+    },
+    {
+      "name": "Effectif d’élèves en CITE 1 et ",
+      "headers": [
+        "Année",
+        " (CITE 1)",
+        " (CITE 2)"
+      ],
+      "data": [
+        [
+          "2019",
+          "4416600",
+          "3415600"
+        ],
+        [
+          "2021",
+          "4330200",
+          "3434200"
+        ],
+        [
+          "2023",
+          "4271200",
+          "3441500"
+        ],
+        [
+          "2024",
+          "4233400",
+          "3437900"
+        ]
+      ]
+    },
+    {
+      "name": " Nombre d’élèves avec un projet",
+      "headers": [
+        "Année Scolaire",
+        "Nombre d'élèves avec PPS",
+        "Évolution annuelle"
+      ],
+      "data": [
+        [
+          "2019-2020",
+          "361200",
+          "0.051"
+        ],
+        [
+          "2020-2021",
+          "384400",
+          "0.064"
+        ],
+        [
+          "2021-2022",
+          "409400",
+          "0.065"
+        ],
+        [
+          "2022-2023",
+          "436400",
+          "0.066"
+        ],
+        [
+          "2023-2024",
+          "468300",
+          "0.073"
+        ]
+      ]
+    }
+  ],
+  "Migration": [
+    {
+      "name": "Nombre de demandeurs d’asile co",
+      "headers": [
+        "Année",
+        "Nombre de demandes (OFPRA)"
+      ],
+      "data": [
+        [
+          "2019",
+          "755"
+        ],
+        [
+          "2020",
+          "733"
+        ],
+        [
+          "2021",
+          "884"
+        ],
+        [
+          "2022",
+          "1150"
+        ],
+        [
+          "2023",
+          "1095"
+        ],
+        [
+          "2024",
+          "1027"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre de MNA (évalués et pris ",
+      "headers": [
+        "Année ",
+        "Nombre de MNA pris en charge"
+      ],
+      "data": [
+        [
+          "2019",
+          "31000"
+        ],
+        [
+          "2020",
+          "27500"
+        ],
+        [
+          "2021",
+          "26500"
+        ],
+        [
+          "2022",
+          "29800"
+        ],
+        [
+          "2023",
+          "31100"
+        ],
+        [
+          "2024",
+          "32500"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre de mineurs enfermés en r",
+      "headers": [
+        "Année",
+        "Hexagone (Enfants)",
+        "Mayotte (Enfants)"
+      ],
+      "data": [
+        [
+          "2019",
+          "291",
+          "3098"
+        ],
+        [
+          "2021",
+          "104",
+          "3135"
+        ],
+        [
+          "2022",
+          "94",
+          "2905"
+        ],
+        [
+          "2023",
+          "72",
+          "1930"
+        ],
+        [
+          "2024",
+          "6",
+          "1860"
+        ]
+      ]
+    }
+  ],
+  "Numérique": [
+    {
+      "name": "Part d’enfants de 0–6 ans utili",
+      "headers": [
+        "Tranche d'âge",
+        "Part d'utilisateurs (2019)",
+        "Part d'utilisateurs (2022)",
+        "Part d'utilisateurs (2024)"
+      ],
+      "data": [
+        [
+          "0 – 2 ans",
+          "0.12",
+          "0.18",
+          "0.22"
+        ],
+        [
+          "2 – 3 ans",
+          "0.24",
+          "0.31",
+          "0.35"
+        ],
+        [
+          "3 – 4 ans",
+          "0.38",
+          "0.47",
+          "0.52"
+        ],
+        [
+          "4 – 5 ans",
+          "0.45",
+          "0.56",
+          "0.63"
+        ],
+        [
+          "5 – 6 ans",
+          "0.54",
+          "0.65",
+          "0.71"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants en matern",
+      "headers": [
+        "Année",
+        "% d'enfants exposés le matin présentant des troubles du langage"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.438"
+        ],
+        [
+          "2020",
+          "0.443"
+        ],
+        [
+          "2021",
+          "0.447"
+        ],
+        [
+          "2022",
+          "0.452"
+        ],
+        [
+          "2023",
+          "0.458"
+        ],
+        [
+          "2024",
+          "0.465"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’infractions liées au n",
+      "headers": [
+        "Année",
+        "Nombre de faits enregistrés",
+        "Évolution annuelle",
+        ""
+      ],
+      "data": [
+        [
+          "2019",
+          "5120",
+          "—",
+          ""
+        ],
+        [
+          "2020",
+          "6480",
+          "0.26",
+          ""
+        ],
+        [
+          "2021",
+          "7810",
+          "0.2",
+          ""
+        ],
+        [
+          "2022",
+          "8940",
+          "0.14",
+          ""
+        ],
+        [
+          "2023",
+          "9710",
+          "0.086",
+          ""
+        ],
+        [
+          "2024",
+          "10600",
+          "0.091",
+          ""
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants entre 6 e",
+      "headers": [
+        "Année",
+        "Pourcentage d’enfants entre 6 et 10 connectés et équipés d’un smartphone"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.23"
+        ],
+        [
+          "2020",
+          "0.28"
+        ],
+        [
+          "2021",
+          "0.34"
+        ],
+        [
+          "2022",
+          "0.4"
+        ],
+        [
+          "2023",
+          "0.46"
+        ],
+        [
+          "2024",
+          "0.52"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants utilisant",
+      "headers": [
+        "Année",
+        "Pourcentage d’enfants utilisant 1 équipement numérique"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.91"
+        ],
+        [
+          "2020",
+          "0.93"
+        ],
+        [
+          "2021",
+          "0.94"
+        ],
+        [
+          "2022",
+          "0.95"
+        ],
+        [
+          "2023",
+          "0.96"
+        ],
+        [
+          "2024",
+          "0.97"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants entre 8 e",
+      "headers": [
+        "Année",
+        "Pourcentage d'enfants inscrits",
+        "Réseaux dominants"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.42",
+          "YouTube (comptes), TikTok (début)"
+        ],
+        [
+          "2020",
+          "0.49",
+          "Explosion de TikTok pendant le Covid"
+        ],
+        [
+          "2021",
+          "0.55",
+          "Arrivée massive sur Snapchat"
+        ],
+        [
+          "2022",
+          "0.61",
+          "Généralisation des comptes \"cachés\""
+        ],
+        [
+          "2023",
+          "0.67",
+          "Source : e-Enfance (Donnée officielle)"
+        ],
+        [
+          "2024",
+          "0.72",
+          "Intégration de l'IA (Snap My AI, etc.)"
+        ]
+      ]
+    },
+    {
+      "name": "Temps d’écran de 2 à 5 ans et d",
+      "headers": [
+        "Âge de l'enfant",
+        "Temps d'écran moyen / jour"
+      ],
+      "data": [
+        [
+          "2 ans",
+          "56 minutes"
+        ],
+        [
+          "3 ans et demi",
+          "80 minutes"
+        ],
+        [
+          "5 ans et demi",
+          "94 minutes"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage des parents qui rég",
+      "headers": [
+        "Année",
+        "% de parents régulant l'usage"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.52"
+        ],
+        [
+          "2021",
+          "0.55"
+        ],
+        [
+          "2022",
+          "0.57"
+        ],
+        [
+          "2023",
+          "0.59"
+        ],
+        [
+          "2024",
+          "0.61"
+        ],
+        [
+          "2025",
+          "0.62"
+        ]
+      ]
+    },
+    {
+      "name": " Pourcentage des parents imposa",
+      "headers": [
+        "Année",
+        "% de parents imposant des restrictions"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.48"
+        ],
+        [
+          "2020",
+          "0.45"
+        ],
+        [
+          "2021",
+          "0.51"
+        ],
+        [
+          "2022",
+          "0.55"
+        ],
+        [
+          "2023",
+          "0.58"
+        ],
+        [
+          "2024",
+          "0.63"
+        ]
+      ]
+    }
+  ],
+  "Nutrition": [
+    {
+      "name": "Part des ménages avec enfants e",
+      "headers": [
+        "Année",
+        "% de ménages avec enfants concernés"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.12"
+        ],
+        [
+          "2021",
+          "0.15"
+        ],
+        [
+          "2022",
+          "0.19"
+        ],
+        [
+          "2023",
+          "0.24"
+        ],
+        [
+          "2024",
+          "0.25"
+        ]
+      ]
+    },
+    {
+      "name": "Année,% d'enfants en surpoids (",
+      "headers": [
+        "Année",
+        "% d'enfants en surpoids (Obésité incluse)"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.17"
+        ],
+        [
+          "2021",
+          "0.19"
+        ],
+        [
+          "2022",
+          "0.194"
+        ],
+        [
+          "2023",
+          "0.198"
+        ],
+        [
+          "2024",
+          "0.202"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage d’enfants en obésit",
+      "headers": [
+        "Pays / Zone",
+        "% d'obésité infantile"
+      ],
+      "data": [
+        [
+          "États-Unis",
+          "0.197"
+        ],
+        [
+          "Chine",
+          "0.15"
+        ],
+        [
+          "Italie / Grèce",
+          "0.12"
+        ],
+        [
+          "Royaume-Uni",
+          "0.1"
+        ],
+        [
+          "France",
+          "0.06"
+        ],
+        [
+          "Vietnam",
+          "0.02"
+        ]
+      ]
+    }
+  ],
+  "Pauvreté": [
+    {
+      "name": "Taux de privation matérielle et",
+      "headers": [
+        "Année",
+        "Taux global (Ensemble)"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.125"
+        ],
+        [
+          "2021",
+          "0.128"
+        ],
+        [
+          "2022",
+          "0.13"
+        ],
+        [
+          "2023",
+          "0.131"
+        ],
+        [
+          "2024",
+          "0.159"
+        ]
+      ]
+    },
+    {
+      "name": "Taux de pauvreté des moins de 1",
+      "headers": [
+        "Pays",
+        "Taux de pauvreté infantile"
+      ],
+      "data": [
+        [
+          "Roumanie / Bulgarie",
+          "0.38"
+        ],
+        [
+          "Espagne / Italie",
+          "0.27"
+        ],
+        [
+          "France",
+          "0.219"
+        ],
+        [
+          "Allemagne",
+          "0.19"
+        ],
+        [
+          "Danemark / Finlande",
+          "0.12"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants sans abri ou v",
+      "headers": [
+        "Année",
+        "Enfants restant à la rue (chaque soir)",
+        "Enfants logés à l'hôtel"
+      ],
+      "data": [
+        [
+          "2019",
+          "~ 700",
+          "~ 20 000"
+        ],
+        [
+          "2021",
+          "~ 1 000",
+          "~ 24 000"
+        ],
+        [
+          "2022",
+          "~ 1 600",
+          "~ 27 000"
+        ],
+        [
+          "2023",
+          "1990",
+          "29500"
+        ],
+        [
+          "2024",
+          "2043",
+          "32000"
+        ]
+      ]
+    },
+    {
+      "name": "Taux d’enfants de 0 à 17 ans vi",
+      "headers": [
+        "Année",
+        "% d'enfants concernés (France)"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.128"
+        ],
+        [
+          "2021",
+          "0.135"
+        ],
+        [
+          "2022",
+          "0.142"
+        ],
+        [
+          "2023",
+          "0.151"
+        ],
+        [
+          "2024",
+          "0.157"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants sans toit décé",
+      "headers": [
+        "Année",
+        "Nombre de décès de mineurs (SDF)"
+      ],
+      "data": [
+        [
+          "2021",
+          "12"
+        ],
+        [
+          "2022",
+          "22"
+        ],
+        [
+          "2023",
+          "31"
+        ],
+        [
+          "2024",
+          "38"
+        ]
+      ]
+    }
+  ],
+  "Petite Enfance": [
+    {
+      "name": "Taux de recours à un mode d’acc",
+      "headers": [
+        "Niveau de revenu des familles",
+        "Taux de recours (2022)",
+        "Mode d'accueil privilégié"
+      ],
+      "data": [
+        [
+          "Familles les plus modestes (1er quartile)",
+          "0.23",
+          "Crèche collective (quand accessible)"
+        ],
+        [
+          "Familles aux revenus intermédiaires",
+          "0.48",
+          "Mixte (Crèche / Assistant maternel)"
+        ],
+        [
+          "Familles aux revenus les plus hauts",
+          "0.74",
+          "Assistant maternel et Garde à domicile"
+        ],
+        [
+          "Moyenne Nationale",
+          "0.58",
+          "-"
+        ]
+      ]
+    },
+    {
+      "name": "aux de couverture des PMI par r",
+      "headers": [
+        "Année",
+        "Taux de couverture (%)"
+      ],
+      "data": [
+        [
+          "2019",
+          "0.18"
+        ],
+        [
+          "2021",
+          "0.15"
+        ],
+        [
+          "2022",
+          "0.13"
+        ],
+        [
+          "2023",
+          "0.12"
+        ],
+        [
+          "2024",
+          "0.11"
+        ]
+      ]
+    },
+    {
+      "name": " Nombre d’enfants en mode d’acc",
+      "headers": [
+        "Année",
+        "Nombre de femmes (Suivi complet)"
+      ],
+      "data": [
+        [
+          "2019",
+          "16100"
+        ],
+        [
+          "2020",
+          "14334"
+        ],
+        [
+          "2021",
+          "15200"
+        ],
+        [
+          "2022",
+          "14800"
+        ],
+        [
+          "2023",
+          "14100"
+        ]
+      ]
+    }
+  ],
+  "Protection": [
+    {
+      "name": "Nombre de mineurs décédés de mo",
+      "headers": [
+        "Année",
+        "Nombre de décès (Mineurs)"
+      ],
+      "data": [
+        [
+          "2019",
+          "80"
+        ],
+        [
+          "2021",
+          "56"
+        ],
+        [
+          "2022",
+          "60"
+        ],
+        [
+          "2023",
+          "62"
+        ],
+        [
+          "2024",
+          "65"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants suivis par l’A",
+      "headers": [
+        "Année",
+        "Nombre de suivis (ASE)",
+        ""
+      ],
+      "data": [
+        [
+          "2019",
+          "355500",
+          ""
+        ],
+        [
+          "2021",
+          "377000",
+          ""
+        ],
+        [
+          "2022",
+          "385000",
+          ""
+        ],
+        [
+          "2023",
+          "395000",
+          ""
+        ],
+        [
+          "2024",
+          "404600",
+          ""
+        ]
+      ]
+    },
+    {
+      "name": "Nombre et part d’enfants suivis",
+      "headers": [
+        "Année",
+        "Nombre de mineurs suivis par la pjj",
+        ""
+      ],
+      "data": [
+        [
+          "2019",
+          "134500",
+          ""
+        ],
+        [
+          "2021",
+          "131000",
+          ""
+        ],
+        [
+          "2022",
+          "135800",
+          ""
+        ],
+        [
+          "2023",
+          "137500",
+          ""
+        ],
+        [
+          "2024",
+          "139102",
+          ""
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants concernés par ",
+      "headers": [
+        "Année",
+        "Appels donnant lieu à une suite"
+      ],
+      "data": [
+        [
+          "2019",
+          "33500"
+        ],
+        [
+          "2021",
+          "36200"
+        ],
+        [
+          "2022",
+          "38400"
+        ],
+        [
+          "2023",
+          "39800"
+        ],
+        [
+          "2024",
+          "40709"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants victimes décla",
+      "headers": [
+        "Type de violence",
+        "Nombre de victimes",
+        "Part en %"
+      ],
+      "data": [
+        [
+          "Violences Intrafamiliales",
+          "57311",
+          "0.552"
+        ],
+        [
+          "Violences Hors Famille",
+          "46437",
+          "0.448"
+        ],
+        [
+          "TOTAL",
+          "103748",
+          "1"
+        ]
+      ]
+    },
+    {
+      "name": "Pourcentage de parents déclaran",
+      "headers": [
+        "Type de violence déclarée",
+        "% de parents concernés"
+      ],
+      "data": [
+        [
+          "Violences Psychologiques",
+          "0.76"
+        ],
+        [
+          "Violences Physiques \"légères\"",
+          "0.45"
+        ],
+        [
+          "Au moins une VEO",
+          "0.81"
+        ],
+        [
+          "Utilisation régulière",
+          "0.18"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants victimes d’exp",
+      "headers": [
+        "Année",
+        "Nombre de victimes identifiées"
+      ],
+      "data": [
+        [
+          "2021",
+          "~ 380"
+        ],
+        [
+          "2022",
+          "435"
+        ],
+        [
+          "2023",
+          "499"
+        ],
+        [
+          "2024",
+          "540"
+        ]
+      ]
+    }
+  ],
+  "Santé mentale": [
+    {
+      "name": "Score de niveau de bien-être et",
+      "headers": [
+        "Année",
+        "Score Moyen "
+      ],
+      "data": [
+        [
+          "Avant 2020",
+          "~75-78 / 100"
+        ],
+        [
+          "2021-2022",
+          "~68 / 100"
+        ],
+        [
+          "2024",
+          "71,0 / 100"
+        ]
+      ]
+    },
+    {
+      "name": "Part des enfants de 11, 13 et 1",
+      "headers": [
+        "Âge / Classe",
+        "Garçons (%)",
+        "Filles (%)",
+        "Moyenne (%)"
+      ],
+      "data": [
+        [
+          "11 ans (6ème)",
+          "0.112",
+          "0.107",
+          "0.11"
+        ],
+        [
+          "13 ans (4ème)",
+          "0.106",
+          "0.114",
+          "0.11"
+        ],
+        [
+          "15 ans (2nde)",
+          "0.076",
+          "0.084",
+          "0.08"
+        ],
+        [
+          "Moyenne Collège",
+          "0.06",
+          "0.064",
+          "0.062"
+        ]
+      ]
+    },
+    {
+      "name": "Part des enfants présentant un ",
+      "headers": [
+        "Type de trouble probable",
+        "Prévalence Globale (%)"
+      ],
+      "data": [
+        [
+          "Trouble global de santé mentale",
+          "0.13"
+        ],
+        [
+          "Trouble oppositionnel",
+          "0.066"
+        ],
+        [
+          "Trouble émotionnel",
+          "0.056"
+        ],
+        [
+          "Trouble de l'attention (TDAH)",
+          "0.032"
+        ]
+      ]
+    },
+    {
+      "name": "Part d’enfants qui ont été cybe",
+      "headers": [
+        "Catégorie d'élèves / Tranche d'âge",
+        "Part d'enfants cyberharcelés (au moins 1-2 fois)"
+      ],
+      "data": [
+        [
+          "Primaire (6-11 ans)",
+          "15% à 20%"
+        ],
+        [
+          "Collégiens (11-15 ans)",
+          "22% à 28%"
+        ],
+        [
+          "Lycéens (15-18 ans)",
+          "23% à 29%"
+        ],
+        [
+          "Filles (tous âges confondus)",
+          "26% à 31%"
+        ],
+        [
+          "Moyenne Européenne (12-17 ans)",
+          "0.24"
+        ],
+        [
+          "Moyenne Mondiale (HBSC/OMS)",
+          "0.16"
+        ]
+      ]
+    }
+  ],
+  "Santé": [
+    {
+      "name": "Taux de couverture des services",
+      "headers": [
+        "",
+        ""
+      ],
+      "data": [
+        [
+          "Zone Géographique",
+          "Indice de couverture (0-100)"
+        ],
+        [
+          "France",
+          "84"
+        ],
+        [
+          "Union Européenne",
+          "81"
+        ],
+        [
+          "Moyenne Mondiale",
+          "68"
+        ],
+        [
+          "Pays à faibles revenus",
+          "39"
+        ]
+      ]
+    },
+    {
+      "name": "Taux de mortalité infantile",
+      "headers": [
+        "Pays / Zone",
+        "Taux pour 1 000 naissances"
+      ],
+      "data": [
+        [
+          "Monaco",
+          "1,5 ‰"
+        ],
+        [
+          "Japon",
+          "1,7 ‰"
+        ],
+        [
+          "Suède",
+          "2,1 ‰"
+        ],
+        [
+          "Union Européenne",
+          "3,3 ‰"
+        ],
+        [
+          "France ",
+          "4,1 ‰"
+        ],
+        [
+          "États-Unis",
+          "5,4 ‰"
+        ],
+        [
+          "Brésil",
+          "11,8 ‰"
+        ],
+        [
+          "Moyenne Mondiale",
+          "26,1 ‰"
+        ],
+        [
+          "Afrique Subsaharienne",
+          "49,0 ‰"
+        ]
+      ]
+    },
+    {
+      "name": "Taux de vaccination des enfants",
+      "headers": [
+        "Année",
+        "Valeur",
+        ""
+      ],
+      "data": [
+        [
+          "Pays / Zone",
+          "DTC (3 doses)",
+          "Rougeole (1re dose)"
+        ],
+        [
+          "Objectif OMS",
+          "0.95",
+          "0.95"
+        ],
+        [
+          "France",
+          "0.956",
+          "0.926"
+        ],
+        [
+          "Allemagne",
+          "0.96",
+          "0.96"
+        ],
+        [
+          "Japon",
+          "0.98",
+          "0.95"
+        ],
+        [
+          "États-Unis",
+          "0.93",
+          "0.92"
+        ],
+        [
+          "Moyenne OCDE",
+          "0.93",
+          "0.89"
+        ]
+      ]
+    },
+    {
+      "name": "Nombre d’enfants et adolescents",
+      "headers": [
+        "Catégorie de structure",
+        "Nombre de jeunes accompagnés",
+        "Part du total (%)"
+      ],
+      "data": [
+        [
+          "Établissements (IME, ITEP, IEM, etc.)",
+          "100200",
+          "0.575"
+        ],
+        [
+          "Services (SESSAD)",
+          "74000",
+          "0.425"
+        ],
+        [
+          "TOTAL (DREES 2022)",
+          "174200",
+          "1"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Tableau de bord interactif des indicateurs sur les droits de l'enfant en France — UNICEF France">
+
+  <title>Tableau de bord — Droits de l'Enfant — UNICEF France</title>
+
+  <!-- Pré-connexion CDN pour réduire la latence de chargement -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- UNICEF Design System : Bootstrap 4 compilé + tokens UNICEF -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@unicef/design-system/dist/css/unicef.css">
+
+  <!-- Chart.js v4.4.3 : bibliothèque de visualisation de données -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <!-- Surcharges de layout + classes manquantes (bd-navbar, select-wrapper) -->
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- Accessibilité : lien de navigation rapide vers le contenu principal -->
+<a class="skip" href="#main-content" tabindex="0">Aller au contenu principal</a>
+
+<h1 class="sr-only">Tableau de bord — Droits de l'Enfant en France</h1>
+
+<!-- ===== BARRE DE NAVIGATION ===== -->
+<nav class="navbar navbar-expand-md flex-column flex-md-row bd-navbar p-0"
+     aria-label="Navigation principale">
+  <a class="navbar-brand" href="#">
+    <img src="LOGOS-~1 1.JPG"
+         alt="Observatoire des Droits de l'Enfant — UNICEF France"
+         style="height:56px;width:auto;"
+         aria-hidden="false">
+  </a>
+
+  <a id="backToRoueBtn" href="../roue_thematiques (27).html"
+     class="btn btn-sm ml-auto mr-3 d-none"
+     style="background:transparent;color:var(--unicef-blue-dark);border:1.5px solid var(--unicef-blue);font-weight:700;"
+     aria-label="Retour à la roue des thématiques">
+    &#8592; Retour à la roue
+  </a>
+</nav>
+
+<!-- ===== ONGLETS DE THÉMATIQUES ===== -->
+<div class="themes-row px-3">
+  <h2 class="sr-only">Thématiques</h2>
+  <ul class="nav nav-tabs border-bottom-0" id="themesBar"
+      role="tablist" aria-label="Sélection d'une thématique">
+  </ul>
+</div>
+
+<!-- ===== CONTENU PRINCIPAL ===== -->
+<div id="main-content" class="app-content">
+
+  <!-- SIDEBAR GAUCHE -->
+  <nav class="sidebar-nav" aria-label="Liste des indicateurs">
+    <div id="sidebar" class="list-group list-group-flush"></div>
+  </nav>
+
+  <!-- PANNEAU DROIT -->
+  <main class="chart-main p-3 bg-light" id="chartPanel" tabindex="-1">
+
+    <!-- Section Filtres -->
+    <section aria-label="Filtres et options">
+      <div class="card mb-3">
+        <div class="card-body py-2">
+          <div class="form-inline flex-wrap">
+
+            <div class="form-group mr-4 mb-2">
+              <span class="small font-weight-bold text-uppercase text-muted">
+                Valeur clé
+              </span>
+              <select class="form-control form-control-sm d-none" id="yearFilter"
+                      aria-label="Filtrer par année">
+                <option value="all">Toutes les années</option>
+              </select>
+            </div>
+
+            <div class="form-group mr-4 mb-2">
+              <span id="chartTypeLbl"
+                    class="mr-2 small font-weight-bold text-uppercase text-muted">
+                Type de graphique
+              </span>
+              <div class="btn-group btn-group-sm" role="group"
+                   aria-labelledby="chartTypeLbl">
+                <button type="button"
+                        class="btn btn-primary chart-type-btn"
+                        data-type="bar"
+                        aria-pressed="true"
+                        onclick="setChartType('bar')">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"
+                       class="mr-1" aria-hidden="true" focusable="false">
+                    <rect x="0"   y="6" width="3" height="6"/>
+                    <rect x="4.5" y="3" width="3" height="9"/>
+                    <rect x="9"   y="0" width="3" height="12"/>
+                  </svg>
+                  Colonnes
+                </button>
+                <button type="button"
+                        class="btn btn-outline-primary chart-type-btn"
+                        data-type="line"
+                        aria-pressed="false"
+                        onclick="setChartType('line')">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                       stroke="currentColor" stroke-width="2"
+                       class="mr-1" aria-hidden="true" focusable="false">
+                    <polyline points="0,10 3,6 7,8 11,2"/>
+                  </svg>
+                  Ligne
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="avgToggle"
+                       checked aria-checked="true"
+                       onchange="toggleAverage(this.checked)">
+                <label class="form-check-label small" for="avgToggle">
+                  Afficher la ligne de moyenne
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Graphique -->
+    <section aria-label="Graphique et données">
+      <div class="card">
+
+        <div class="card-header d-flex align-items-center">
+          <h2 class="h5 mb-0 chart-title-heading" id="chartTitle">
+            Sélectionnez un indicateur
+          </h2>
+
+          <div id="chartActions" class="d-flex align-items-center ml-auto" style="gap:6px;">
+            <button type="button" id="downloadBtn"
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="downloadChart()"
+                    aria-label="Télécharger le graphique en PNG">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2"
+                   class="mr-1" aria-hidden="true" focusable="false">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Télécharger
+            </button>
+
+            <button type="button"
+                    class="btn btn-sm share-btn"
+                    style="background:#0A66C2;color:#fff;border:none;"
+                    onclick="shareChart('linkedin')"
+                    aria-label="Partager sur LinkedIn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                   class="mr-1" aria-hidden="true" focusable="false">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+              LinkedIn
+            </button>
+
+            <button type="button"
+                    class="btn btn-sm share-btn"
+                    style="background:#1877F2;color:#fff;border:none;"
+                    onclick="shareChart('facebook')"
+                    aria-label="Partager sur Facebook">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                   class="mr-1" aria-hidden="true" focusable="false">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+              Facebook
+            </button>
+          </div>
+
+          <div id="chartSpinner" class="ml-2 d-none"
+               role="status" aria-live="polite">
+            <div class="spinner-border spinner-border-sm text-primary"
+                 aria-hidden="true"></div>
+            <span class="ml-1 small text-muted">Chargement...</span>
+          </div>
+        </div><!-- /card-header -->
+
+        <div class="card-body">
+          <div class="chart-container position-relative"
+               id="chartRegion" role="img"
+               aria-label="Graphique de l'indicateur sélectionné">
+            <canvas id="mainChart"></canvas>
+
+            <div id="noData" class="no-data-msg text-muted" style="display:none;"
+                 role="status" aria-live="polite">
+              <svg width="40" height="40" fill="none" stroke="currentColor"
+                   stroke-width="1.5" viewBox="0 0 24 24"
+                   aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <circle cx="12" cy="16" r="1" fill="currentColor"/>
+              </svg>
+              <p class="mt-2 mb-0 small">
+                Cet indicateur contient des données textuelles.<br>
+                Consultez le tableau ci-dessous pour les détails.
+              </p>
+            </div>
+          </div><!-- /chart-container -->
+
+          <!-- Source : dans le carré de visualisation -->
+          <p id="indicatorSource"
+             style="margin:6px 0 0;font-size:0.75rem;color:#6c757d;">
+            <strong>Source :</strong>
+          </p>
+        </div><!-- /card-body -->
+      </div><!-- /card -->
+    </section>
+
+    <!-- Analyse (en dehors du graphique — scroll pour y accéder) -->
+    <div id="indicatorAnalysis" class="indicator-analysis" style="display:none;">
+    </div>
+
+  </main>
+</div><!-- /app-content -->
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@unicef/design-system/dist/js/unicef-bundle.min.js"></script>
+<script src="data.js"></script>
+<script src="icons.js"></script>
+<script src="analyses.js"></script>
+<script src="dashboard.js"></script>
+<script>init();</script>
+</body>
+</html>
