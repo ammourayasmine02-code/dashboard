@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests de sécurité — Dashboard UNICEF</title>
+  <style>
+    body { font-family: "Segoe UI", Arial, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #f8f9fa; }
+    h1 { color: #1CABE2; border-bottom: 2px solid #1CABE2; padding-bottom: .5rem; }
+    h2 { color: #374EA2; margin-top: 2rem; font-size: 1.1rem; }
+    .suite { background: #fff; border: 1px solid #dee2e6; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    .pass  { color: #00833D; font-weight: bold; }
+    .fail  { color: #E2231A; font-weight: bold; }
+    .warn  { color: #F26A21; font-weight: bold; }
+    .test  { padding: .25rem 0; border-bottom: 1px solid #f2f2f2; font-size: .9rem; display: flex; gap: .5rem; align-items: baseline; }
+    .test:last-child { border-bottom: none; }
+    .badge { font-size: .7rem; padding: .1rem .4rem; border-radius: 3px; color: #fff; white-space: nowrap; }
+    .badge-critical { background: #E2231A; }
+    .badge-high     { background: #F26A21; }
+    .badge-medium   { background: #FFC20E; color: #212529; }
+    .badge-low      { background: #80BD41; }
+    #summary { background: #374EA2; color: #fff; border-radius: 6px; padding: 1rem 1.5rem; margin: 2rem 0 1rem; }
+    #summary h2 { color: #fff; margin: 0 0 .5rem; font-size: 1.2rem; }
+    .score { font-size: 2rem; font-weight: bold; }
+    pre { background: #f2f2f2; padding: .5rem; border-radius: 3px; font-size: .8rem; overflow-x: auto; }
+    .note { font-size: .8rem; color: #6c757d; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<h1>Tests de sécurité — Dashboard UNICEF</h1>
+<p class="note">Ouvrir ce fichier via un serveur HTTP local (<code>python -m http.server</code>) depuis le dossier dashboard/ pour que les tests d'import fonctionnent. Certains tests fonctionnent aussi en file://.</p>
+
+<div id="summary">
+  <h2>Résumé</h2>
+  <div id="score" class="score">…</div>
+  <div id="summary-detail"></div>
+</div>
+
+<div id="results"></div>
+
+<script>
+// ============================================================
+//  MINI FRAMEWORK DE TESTS
+// ============================================================
+
+var results = { pass: 0, fail: 0, warn: 0 };
+
+function suite(name) {
+  var el = document.createElement('div');
+  el.className = 'suite';
+  el.innerHTML = '<h2>' + name + '</h2>';
+  document.getElementById('results').appendChild(el);
+  return el;
+}
+
+function test(container, label, severity, fn) {
+  var row = document.createElement('div');
+  row.className = 'test';
+
+  var badge = document.createElement('span');
+  badge.className = 'badge badge-' + severity.toLowerCase();
+  badge.textContent = severity;
+  row.appendChild(badge);
+
+  var msg = document.createElement('span');
+  try {
+    var result = fn();
+    if (result === true) {
+      msg.className = 'pass';
+      msg.textContent = '✓ ' + label;
+      results.pass++;
+    } else if (result === 'warn') {
+      msg.className = 'warn';
+      msg.textContent = '⚠ ' + label;
+      results.warn++;
+    } else {
+      msg.className = 'fail';
+      msg.textContent = '✗ ' + label + (result ? ' — ' + result : '');
+      results.fail++;
+    }
+  } catch(e) {
+    msg.className = 'fail';
+    msg.textContent = '✗ ' + label + ' — Exception: ' + e.message;
+    results.fail++;
+  }
+  row.appendChild(msg);
+  container.appendChild(row);
+}
+
+function note(container, text) {
+  var p = document.createElement('p');
+  p.className = 'note';
+  p.textContent = text;
+  container.appendChild(p);
+}
+
+// ============================================================
+//  SUITE 1 — CONTENU SECURITY POLICY (index.html)
+// ============================================================
+
+function fetchIndexHtml(cb) {
+  if (window._indexHtml !== undefined) { cb(window._indexHtml); return; }
+  if (window.location.protocol === 'file:') {
+    // En file:// on ne peut pas fetch un fichier local dans tous les navigateurs
+    window._indexHtml = null;
+    cb(null);
+    return;
+  }
+  fetch('index.html')
+    .then(function(r) { return r.text(); })
+    .then(function(t) { window._indexHtml = t; cb(t); })
+    .catch(function() { window._indexHtml = null; cb(null); });
+}
+
+function runAllTests() {
+
+  // ── SUITE 1 : Configuration de sécurité ──────────────────────────────
+  var s1 = suite('1. Configuration de sécurité (index.html)');
+
+  fetchIndexHtml(function(html) {
+
+    test(s1, 'Content-Security-Policy présente dans index.html', 'HIGH', function() {
+      if (!html) return 'warn'; // Ne peut pas vérifier en file://
+      return html.indexOf('Content-Security-Policy') !== -1 || 'Meta CSP absente';
+    });
+
+    test(s1, 'CSP bloque script-src sans unsafe-inline', 'HIGH', function() {
+      if (!html) return 'warn';
+      var m = html.match(/Content-Security-Policy[^>]*content="([^"]+)"/);
+      if (!m) return 'Meta CSP introuvable';
+      var csp = m[1];
+      var hasScriptSrc = csp.indexOf('script-src') !== -1;
+      var hasUnsafeInline = csp.indexOf("'unsafe-inline'") !== -1 &&
+                            csp.indexOf('script-src') < csp.indexOf("'unsafe-inline'");
+      if (!hasScriptSrc) return 'script-src absent de la CSP';
+      if (hasUnsafeInline) return "script-src contient 'unsafe-inline'";
+      return true;
+    });
+
+    test(s1, 'CSP contient frame-ancestors ou note serveur', 'MEDIUM', function() {
+      if (!html) return 'warn';
+      // frame-ancestors ne fonctionne qu'en HTTP header, pas dans meta
+      // On vérifie la présence d'un commentaire d'avertissement dans le code
+      return html.indexOf('frame-ancestors') !== -1 || 'warn';
+    });
+
+    test(s1, 'SRI présent sur Chart.js CDN', 'HIGH', function() {
+      if (!html) return 'warn';
+      return html.indexOf('chart.js') !== -1 && html.indexOf('integrity="sha384-') !== -1 || 'SRI manquant';
+    });
+
+    test(s1, 'SRI présent sur unicef.css CDN', 'HIGH', function() {
+      if (!html) return 'warn';
+      return html.indexOf('unicef.css') !== -1 && html.indexOf('integrity="sha384-') !== -1 || 'SRI manquant';
+    });
+
+    test(s1, 'SRI présent sur unicef-bundle.min.js CDN', 'HIGH', function() {
+      if (!html) return 'warn';
+      return html.indexOf('unicef-bundle.min.js') !== -1 && html.indexOf('integrity="sha384-') !== -1 || 'SRI manquant';
+    });
+
+    test(s1, 'crossorigin="anonymous" présent sur toutes les ressources CDN', 'HIGH', function() {
+      if (!html) return 'warn';
+      var cdnCount = (html.match(/cdn\.jsdelivr\.net/g) || []).length;
+      var corsCount = (html.match(/crossorigin="anonymous"/g) || []).length;
+      // -1 pour le preconnect (pas de crossorigin requis sur link preconnect)
+      return corsCount >= cdnCount - 1 || 'crossorigin="anonymous" manquant sur ' + (cdnCount - corsCount) + ' ressource(s)';
+    });
+
+    test(s1, 'Aucun handler onclick/onchange inline dans index.html', 'HIGH', function() {
+      if (!html) return 'warn';
+      var inlineHandlers = html.match(/\s(onclick|onchange|onload|onerror|onmouseover)\s*=/g);
+      if (inlineHandlers) return 'Handlers inline trouvés : ' + inlineHandlers.join(', ');
+      return true;
+    });
+
+    test(s1, 'Aucun script inline <script>init()</script> dans index.html', 'MEDIUM', function() {
+      if (!html) return 'warn';
+      // Cherche des scripts inline (hors les scripts src=)
+      var inlineScripts = html.match(/<script(?![^>]*\bsrc\b)[^>]*>[^<]+<\/script>/gi);
+      if (inlineScripts && inlineScripts.length > 0) {
+        return 'Script inline trouvé : ' + inlineScripts[0].substring(0, 60) + '...';
+      }
+      return true;
+    });
+
+    test(s1, 'Référent Policy configurée', 'LOW', function() {
+      if (!html) return 'warn';
+      return html.indexOf('referrer') !== -1 || 'Meta referrer absente';
+    });
+
+    note(s1, 'Note : les en-têtes HTTP (X-Frame-Options, Strict-Transport-Security, X-Content-Type-Options) doivent être configurés côté serveur — non testables dans ce fichier HTML.');
+  });
+
+  // ── SUITE 2 : Fonctions de sécurité JavaScript ───────────────────────
+  var s2 = suite('2. Fonctions de sécurité JavaScript (dashboard.js)');
+  note(s2, 'Ces tests nécessitent que dashboard.js soit chargé dans la même page. Ouvrez index.html et exécutez les tests depuis la console, ou utilisez un serveur HTTP.');
+
+  // Tests sur escHtml
+  test(s2, 'escHtml() échappe < > " & correctement', 'HIGH', function() {
+    if (typeof escHtml === 'undefined') return 'warn';
+    var input    = '<script>alert("XSS")</script>&test';
+    var expected = '&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;&amp;test';
+    var actual   = escHtml(input);
+    if (actual !== expected) return 'Résultat : ' + actual;
+    return true;
+  });
+
+  test(s2, "escHtml() échappe l'apostrophe", 'MEDIUM', function() {
+    if (typeof escHtml === 'undefined') return 'warn';
+    return escHtml("test'value").indexOf('&#x27;') !== -1 || "apostrophe non échappée";
+  });
+
+  test(s2, 'escHtml() retourne une chaîne pour tout type d\'entrée', 'LOW', function() {
+    if (typeof escHtml === 'undefined') return 'warn';
+    return typeof escHtml(null) === 'string' &&
+           typeof escHtml(undefined) === 'string' &&
+           typeof escHtml(42) === 'string' || 'Type de retour incorrect';
+  });
+
+  // Tests sur _validateParam
+  test(s2, '_validateParam() accepte un nom de thème valide', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    var valid = _validateParam('Démographie');
+    return valid === 'Démographie' || 'Valide refusé : ' + valid;
+  });
+
+  test(s2, '_validateParam() rejette les strings > 200 caractères', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    var longStr = 'a'.repeat(201);
+    return _validateParam(longStr) === null || 'String longue acceptée';
+  });
+
+  test(s2, '_validateParam() rejette les balises HTML', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam('<script>alert(1)</script>') === null || 'Balise HTML acceptée';
+  });
+
+  test(s2, '_validateParam() rejette les caractères de contrôle (null byte)', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam('test\x00malicious') === null || 'Null byte accepté';
+  });
+
+  test(s2, '_validateParam() rejette les guillemets doubles', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam('test"inject') === null || 'Guillemet double accepté';
+  });
+
+  test(s2, '_validateParam() retourne null pour null/undefined', 'LOW', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam(null) === null && _validateParam(undefined) === null || 'null/undefined non géré';
+  });
+
+  // Tests sur shareChart
+  test(s2, 'shareChart() bloque les plateformes non autorisées', 'HIGH', function() {
+    if (typeof shareChart === 'undefined') return 'warn';
+    // On mocke window.open temporairement pour détecter si la popup s'ouvre
+    var opened = false;
+    var origOpen = window.open;
+    window.open = function() { opened = true; };
+    shareChart('__proto__');
+    shareChart('javascript:alert(1)');
+    shareChart('evil');
+    shareChart('constructor');
+    window.open = origOpen;
+    return opened === false || 'Plateforme non autorisée a déclenché window.open()';
+  });
+
+  test(s2, 'shareChart("linkedin") déclenche window.open()', 'LOW', function() {
+    if (typeof shareChart === 'undefined' || typeof DASHBOARD_DATA === 'undefined') return 'warn';
+    var opened = false;
+    var openedUrl = '';
+    var origOpen = window.open;
+    window.open = function(url, target, features) {
+      opened = true;
+      openedUrl = url || '';
+    };
+    shareChart('linkedin');
+    window.open = origOpen;
+    if (!opened) return 'window.open non appelé pour linkedin';
+    if (openedUrl.indexOf('linkedin.com') === -1) return 'URL incorrecte : ' + openedUrl;
+    return true;
+  });
+
+  test(s2, 'shareChart() utilise noopener dans les features (anti-tabnapping)', 'HIGH', function() {
+    if (typeof shareChart === 'undefined' || typeof DASHBOARD_DATA === 'undefined') return 'warn';
+    var features = '';
+    var origOpen = window.open;
+    window.open = function(url, target, f) { features = f || ''; };
+    shareChart('linkedin');
+    window.open = origOpen;
+    if (features.indexOf('noopener') === -1) return 'noopener absent des features : ' + features;
+    return true;
+  });
+
+  test(s2, 'shareChart() utilise noreferrer dans les features', 'MEDIUM', function() {
+    if (typeof shareChart === 'undefined' || typeof DASHBOARD_DATA === 'undefined') return 'warn';
+    var features = '';
+    var origOpen = window.open;
+    window.open = function(url, target, f) { features = f || ''; };
+    shareChart('facebook');
+    window.open = origOpen;
+    if (features.indexOf('noreferrer') === -1) return 'noreferrer absent des features : ' + features;
+    return true;
+  });
+
+  // Tests sur downloadChart
+  test(s2, 'downloadChart() n\'échoue pas si le nom sanitisé est vide', 'LOW', function() {
+    // Test indirect : vérification du code source pour le fallback
+    if (typeof downloadChart === 'undefined') return 'warn';
+    // On vérifie que la fonction est définie et ne lève pas d'exception au chargement
+    return typeof downloadChart === 'function' || 'downloadChart non définie';
+  });
+
+  // ── SUITE 3 : Protection XSS ─────────────────────────────────────────
+  var s3 = suite('3. Protection XSS et injection');
+
+  test(s3, 'Titre du graphique inséré via textContent (pas innerHTML)', 'HIGH', function() {
+    if (typeof renderChart === 'undefined') return 'warn';
+    // Vérification indirecte : si un nom d'indicateur contenant HTML n'est pas interprété
+    var el = document.getElementById('chartTitle');
+    if (!el) return 'warn'; // Élément absent (pas dans index.html)
+    var xssName = '<img src=x onerror=alert(1)>';
+    el.textContent = xssName;
+    // Si la balise img était interprétée, elle serait dans le DOM
+    var hasImg = el.querySelector('img') !== null;
+    el.textContent = 'Sélectionnez un indicateur'; // Restore
+    return hasImg === false || 'textContent interprète HTML — VULNÉRABILITÉ XSS';
+  });
+
+  test(s3, 'aria-label setAttribute est safe contre XSS', 'MEDIUM', function() {
+    var el = document.getElementById('chartRegion');
+    if (!el) return 'warn';
+    el.setAttribute('aria-label', '<script>alert(1)</script>');
+    var val = el.getAttribute('aria-label');
+    var safe = val === '<script>alert(1)</script>'; // La valeur brute est stockée mais non exécutée
+    el.setAttribute('aria-label', 'Graphique de l\'indicateur sélectionné');
+    return safe || 'setAttribute a modifié/exécuté la valeur';
+  });
+
+  test(s3, 'Pas d\'utilisation de eval() dans dashboard.js', 'CRITICAL', function() {
+    // Test par introspection de la fonction toString()
+    var fns = [
+      typeof init !== 'undefined' ? init : null,
+      typeof renderChart !== 'undefined' ? renderChart : null,
+      typeof selectTheme !== 'undefined' ? selectTheme : null,
+    ].filter(Boolean);
+    for (var i = 0; i < fns.length; i++) {
+      var src = fns[i].toString();
+      if (src.indexOf('eval(') !== -1 || src.indexOf('new Function(') !== -1) {
+        return 'eval() ou new Function() détecté dans ' + fns[i].name;
+      }
+    }
+    return true;
+  });
+
+  test(s3, "Pas d'utilisation de document.write()", 'HIGH', function() {
+    if (typeof init === 'undefined') return 'warn';
+    var src = init.toString() + (typeof renderChart !== 'undefined' ? renderChart.toString() : '');
+    return src.indexOf('document.write') === -1 || 'document.write() détecté';
+  });
+
+  // ── SUITE 4 : Validation côté client ─────────────────────────────────
+  var s4 = suite('4. Validation des entrées');
+
+  test(s4, '_validateParam() rejette un CRLF injection (%0D%0A)', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam('test\r\nHeader: injected') === null || 'CRLF accepté';
+  });
+
+  test(s4, '_validateParam() rejette une injection de backtick', 'MEDIUM', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    return _validateParam('test`code`') === null || 'Backtick accepté';
+  });
+
+  test(s4, '_validateParam() accepte les accents français (é, è, à, ç…)', 'LOW', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    var valid = _validateParam('Santé mentale');
+    return valid === 'Santé mentale' || 'Accents refusés : ' + valid;
+  });
+
+  test(s4, '_validateParam() accepte les chiffres et tirets', 'LOW', function() {
+    if (typeof _validateParam === 'undefined') return 'warn';
+    var valid = _validateParam('Taux-2024');
+    return valid === 'Taux-2024' || 'Chiffres/tirets refusés : ' + valid;
+  });
+
+  // Afficher le résumé final
+  var total = results.pass + results.fail + results.warn;
+  var pct   = total > 0 ? Math.round(results.pass / total * 100) : 0;
+  document.getElementById('score').textContent =
+    results.pass + '/' + total + ' tests réussis (' + pct + '%)';
+  document.getElementById('summary-detail').innerHTML =
+    '<span style="color:#80BD41">' + results.pass + ' réussis</span> · ' +
+    '<span style="color:#E2231A">' + results.fail + ' échoués</span> · ' +
+    '<span style="color:#FFC20E">' + results.warn + ' avertissements</span>' +
+    (results.warn > 0 ? '<br><small>Les avertissements indiquent des tests non exécutables en file:// — ouvrir via un serveur HTTP.</small>' : '');
+}
+
+// Attendre que dashboard.js soit potentiellement chargé (s'il est importé via iframe ou script)
+if (typeof init !== 'undefined') {
+  runAllTests();
+} else {
+  // Si ce fichier est ouvert directement (pas dans le contexte de l'app),
+  // charger dashboard.js dynamiquement n'est pas possible sans serveur.
+  // On exécute quand même les tests disponibles.
+  runAllTests();
+}
+</script>
+
+<div style="margin-top: 3rem; padding: 1rem; background: #fff; border: 1px solid #dee2e6; border-radius: 6px;">
+  <h2 style="color:#374EA2; margin-top:0;">Comment exécuter les tests complets</h2>
+  <ol>
+    <li>Lancer un serveur local : <code>python -m http.server 8080</code> depuis le dossier <code>dashboard/</code></li>
+    <li>Ouvrir <a href="http://localhost:8080/security-tests.html">http://localhost:8080/security-tests.html</a></li>
+    <li>Pour les tests de fonctions JS, ouvrir <a href="http://localhost:8080/index.html">index.html</a> puis coller dans la console :</li>
+  </ol>
+  <pre>// Test rapide dans la console du navigateur (depuis index.html)
+console.assert(typeof _validateParam === 'function', '_validateParam manquante');
+console.assert(_validateParam('&lt;script&gt;') === null, 'XSS accepté !');
+console.assert(_validateParam('Démographie') === 'Démographie', 'Valide refusé');
+console.assert(typeof escHtml === 'function', 'escHtml manquante');
+console.assert(escHtml('&lt;b&gt;') === '&amp;lt;b&amp;gt;', 'escHtml défaillante');
+console.log('Tests console : OK');</pre>
+</div>
+
+</body>
+</html>

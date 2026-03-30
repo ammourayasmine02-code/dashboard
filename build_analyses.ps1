@@ -10,8 +10,21 @@
 # Force l'encodage UTF-8 dans la console pour éviter les problèmes d'accents
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# Lecture du fichier texte source contenant tous les textes d'analyse
-$t = Get-Content 'C:\Users\yammoura\Downloads\dashboard\analyses_temp.txt' -Encoding UTF8 -Raw
+# Résolution du chemin relatif au répertoire du script (portable, pas de chemin absolu)
+# $PSScriptRoot = dossier contenant build_analyses.ps1 — fonctionne peu importe l'utilisateur
+# ou la machine. Les chemins absolus codés en dur exposent le nom d'utilisateur Windows
+# et empêchent l'exécution sur d'autres postes ou en CI/CD.
+$scriptDir   = $PSScriptRoot
+$inputFile   = Join-Path $scriptDir 'analyses_temp.txt'
+$outputFile  = Join-Path $scriptDir 'analyses_ascii.js'
+
+# Vérification d'existence du fichier source avant lecture
+if (-not (Test-Path $inputFile)) {
+  Write-Error "Fichier source introuvable : $inputFile"
+  exit 1
+}
+
+$t = Get-Content $inputFile -Encoding UTF8 -Raw
 
 # ------------------------------------------------------------
 # Fonction Seg : extrait le texte situé entre deux marqueurs
@@ -103,17 +116,39 @@ foreach ($k in $map.Keys) {
   $v = $map[$k]
   # On ignore les valeurs vides ou trop courtes (moins de 5 caractères)
   if ($v -and $v.Length -gt 5) {
-    # Suppression des retours à la ligne et tabulations → remplacés par un espace simple
+
+    # ── Nettoyage des espaces blancs ──────────────────────────────────────
+    # Remplace toutes les séquences de whitespace (CRLF, LF, CR, tab) par un espace simple.
     $vClean = $v -replace "[\r\n\t]+", " " -replace "\s+", " "
-    # Échappement des caractères spéciaux pour la syntaxe JavaScript (apostrophes et antislashs)
-    $vClean = $vClean -replace "\\", "\\\\" -replace "'", "\\'"
-    [void]$sb.AppendLine("  '$k': '$vClean',")
+
+    # ── Échappement complet pour les littéraux JavaScript ────────────────
+    # ORDRE IMPÉRATIF : l'antislash doit être échappé EN PREMIER,
+    # sinon les échappements suivants doubleraient les antislashs déjà insérés.
+    #
+    # Vecteurs traités :
+    #  1) \        → \\     (antislash — caractère d'échappement JS)
+    #  2) '        → \'     (apostrophe — délimiteur du littéral JS)
+    #  3) "        → \"     (guillemet  — protection défensive)
+    #  4) octet nul→ ""     (null byte  — troncature de chaîne en C/certains parseurs)
+    #  Les sauts de ligne sont déjà traités à l'étape de nettoyage ci-dessus.
+    $vClean = $vClean -replace "\\",   "\\\\"     # 1) \ → \\
+    $vClean = $vClean -replace "'",    "\\'"      # 2) ' → \'
+    $vClean = $vClean -replace '"',    '\\"'      # 3) " → \"
+    $vClean = $vClean -replace "\x00", ""         # 4) null byte → supprimé
+
+    # Échappement de la clé JS (même logique, par cohérence)
+    $kClean = $k      -replace "\\",   "\\\\"
+    $kClean = $kClean -replace "'",    "\\'"
+    $kClean = $kClean -replace '"',    '\\"'
+    $kClean = $kClean -replace "\x00", ""
+
+    [void]$sb.AppendLine("  '$kClean': '$vClean',")
   }
 }
 
 [void]$sb.AppendLine("};")
 
-# Écriture du résultat dans le fichier de sortie en UTF-8
+# Écriture du résultat dans le fichier de sortie en UTF-8 (chemin relatif via $scriptDir)
 # → Renommer ensuite analyses_ascii.js en analyses.js pour l'utiliser dans le dashboard
-$sb.ToString() | Out-File 'C:\Users\yammoura\Downloads\dashboard\analyses_ascii.js' -Encoding UTF8
-Write-Host "Terminé — fichier analyses_ascii.js généré avec succès."
+$sb.ToString() | Out-File $outputFile -Encoding UTF8
+Write-Host "Terminé — fichier généré : $outputFile"
